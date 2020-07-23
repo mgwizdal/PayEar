@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PayEar</string>
+    <string name="new_employee_added">New Employee added!</string>
 </resources>

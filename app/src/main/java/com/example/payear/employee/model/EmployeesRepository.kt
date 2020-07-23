@@ -5,14 +5,18 @@ import io.reactivex.Observable
 
 class EmployeesRepository(private val employeeDao: EmployeeDao) {
 
-    fun getAllEmployees(): Observable<List<EmployeeItem>> =
-        employeeDao.getEmployees().toObservable().map { list ->
-            list.map { it.toEmployeeItem() }
-        }
+    fun insertEmployee(employeeItem: EmployeeItem) = employeeDao.insertEmployees(
+        EmployeeEntity(
+            firstName = employeeItem.firstName,
+            lastName = employeeItem.lastName,
+            age = employeeItem.age,
+            gender = employeeItem.gender ))
 
-    fun getEmployeeById(id: Int): Flowable<EmployeeItem> = employeeDao.getEmployeeById(id).map {
-        it.toEmployeeItem()
-    }
+    fun getAllEmployees(): Observable<List<EmployeeItem>> =
+        employeeDao.getEmployees().toObservable().map { list -> list.map { it.toEmployeeItem() } }
+
+    fun getEmployeeById(id: Int): Flowable<EmployeeItem> =
+        employeeDao.getEmployeeById(id).map { it.toEmployeeItem() }
 
     fun deleteById(id: Int) = employeeDao.deleteById(id)
 
@@ -26,5 +30,4 @@ class EmployeesRepository(private val employeeDao: EmployeeDao) {
 
     private fun EmployeeEntity.toEmployeeItem(): EmployeeItem =
         EmployeeItem(id, firstName, lastName, age, gender)
-}
 }
