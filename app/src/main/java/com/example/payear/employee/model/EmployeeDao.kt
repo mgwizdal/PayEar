@@ -18,7 +18,7 @@ interface EmployeeDao {
     fun deleteById(id: Int)
 
     @Query(UPDATE_BY_ID)
-    fun updateById(id: Int, firstName: String, lastName: String, age: Int, gender: String)
+    fun updateById(id: Int, firstName: String, lastName: String, age: Int, gender: String, address: String)
 
     companion object {
         private const val GET_ALL_ITEMS = "SELECT * FROM ${EmployeeEntity.TABLE_NAME}"
@@ -30,7 +30,8 @@ interface EmployeeDao {
                 "${EmployeeEntity.COLUMN_EMPLOYEE_FIRST_NAME} =  :firstName, " +
                 "${EmployeeEntity.COLUMN_EMPLOYEE_LAST_NAME} =  :lastName, " +
                 "${EmployeeEntity.COLUMN_EMPLOYEE_AGE} =  :age, " +
-                "${EmployeeEntity.COLUMN_EMPLOYEE_GENDER} =  :gender " +
+                "${EmployeeEntity.COLUMN_EMPLOYEE_GENDER} =  :gender, " +
+                "${EmployeeEntity.COLUMN_EMPLOYEE_ADDRESS} =  :address " +
                 "WHERE ${EmployeeEntity.COLUMN_EMPLOYEE_ID} = :id"
     }
 }

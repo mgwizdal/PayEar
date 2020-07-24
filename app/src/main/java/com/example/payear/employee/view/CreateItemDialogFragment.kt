@@ -35,8 +35,9 @@ class CreateItemDialogFragment : BaseItemDialogFragment() {
                     view.firstNameEditText.text.toString(),
                     view.lastNameEditText.text.toString(),
                     Integer.parseInt(view.ageEditText.text.let { if (it.isNotEmpty()) it.toString() else "0" }),
-                    getGenderFromId(view.genderRadioGroup.checkedRadioButtonId)
-                )
+                    getGenderFromId(view.genderRadioGroup.checkedRadioButtonId),
+                    view.addressEditText.text.toString()
+                    )
             ).subscribe({
                 dialog?.dismiss()
                 view.context.showToast(getString(R.string.new_employee_added))

@@ -17,6 +17,7 @@ class EditItemDialogFragment : BaseItemDialogFragment() {
     private lateinit var lastName: String
     private var age: Int? = null
     private lateinit var gender: Gender
+    private lateinit var address: String
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -30,6 +31,7 @@ class EditItemDialogFragment : BaseItemDialogFragment() {
         lastName = requireNotNull(arguments?.getString(KEY_EDIT_LAST_NAME))
         age = requireNotNull(arguments?.getInt(KEY_EDIT_AGE))
         gender = requireNotNull(arguments?.getParcelable(KEY_EDIT_GENDER))
+        address = requireNotNull(arguments?.getString(KEY_EDIT_ADDRESS))
     }
 
     override fun onCreateView(
@@ -43,6 +45,7 @@ class EditItemDialogFragment : BaseItemDialogFragment() {
         view.firstNameEditText.setText(firstName)
         view.lastNameEditText.setText(lastName)
         view.genderRadioGroup.check(getIdFromGender())
+        view.addressEditText.setText(address)
 
         view.confirmButton.setOnClickListener {
             id?.let {
@@ -52,7 +55,8 @@ class EditItemDialogFragment : BaseItemDialogFragment() {
                         view.firstNameEditText.text.toString(),
                         view.lastNameEditText.text.toString(),
                         Integer.parseInt(view.ageEditText.text.toString()),
-                        getGenderFromId(view.genderRadioGroup.checkedRadioButtonId)
+                        getGenderFromId(view.genderRadioGroup.checkedRadioButtonId),
+                        view.addressEditText.text.toString()
                     )
                 )
             }
@@ -81,13 +85,15 @@ class EditItemDialogFragment : BaseItemDialogFragment() {
         const val KEY_EDIT_LAST_NAME = "KEY_EDIT_LAST_NAME"
         const val KEY_EDIT_AGE = "KEY_EDIT_AGE"
         const val KEY_EDIT_GENDER = "KEY_EDIT_GENDER"
+        const val KEY_EDIT_ADDRESS = "KEY_EDIT_ADDRESS"
 
         fun newInstance(
             id: Int,
             firstName: String,
             lastName: String,
             age: Int,
-            gender: Gender
+            gender: Gender,
+            address: String
         ): EditItemDialogFragment {
             val bundle = Bundle()
             bundle.putInt(KEY_EDIT_ID, id)
@@ -95,6 +101,7 @@ class EditItemDialogFragment : BaseItemDialogFragment() {
             bundle.putString(KEY_EDIT_LAST_NAME, lastName)
             bundle.putString(KEY_EDIT_FIRST_NAME, firstName)
             bundle.putParcelable(KEY_EDIT_GENDER, gender)
+            bundle.putString(KEY_EDIT_ADDRESS, address)
             val fragment =
                 EditItemDialogFragment()
             fragment.arguments = bundle

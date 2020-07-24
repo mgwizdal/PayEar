@@ -17,7 +17,9 @@ data class EmployeeEntity(
     @ColumnInfo(name = COLUMN_EMPLOYEE_AGE)
     val age: Int,
     @ColumnInfo(name = COLUMN_EMPLOYEE_GENDER)
-    val gender: Gender
+    val gender: Gender,
+    @ColumnInfo(name = COLUMN_EMPLOYEE_ADDRESS)
+    val address: String
 ) {
     companion object {
         const val TABLE_NAME = "employees"
@@ -26,5 +28,6 @@ data class EmployeeEntity(
         const val COLUMN_EMPLOYEE_LAST_NAME = "last_name"
         const val COLUMN_EMPLOYEE_GENDER = "gender"
         const val COLUMN_EMPLOYEE_AGE = "age"
+        const val COLUMN_EMPLOYEE_ADDRESS = "address"
     }
 }

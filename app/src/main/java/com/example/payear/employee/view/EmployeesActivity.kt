@@ -44,7 +44,8 @@ class EmployeesActivity : AppCompatActivity(), DeleteItemDialogFragment.Listener
                         item.firstName,
                         item.lastName,
                         item.age,
-                        item.gender
+                        item.gender,
+                        item.address
                     )
                 )
             } else {

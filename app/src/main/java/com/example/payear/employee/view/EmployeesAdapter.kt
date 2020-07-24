@@ -43,6 +43,7 @@ class EmployeesAdapter() :
             itemView.namesTextView.text = fullName
             itemView.ageTextView.text = item.age.toString()
             itemView.genderTextView.text = item.gender.toString()
+            itemView.addressTextView.text = item.address
             itemView.deleteButton.setOnClickListener {
                 item.id?.let { onDeleteClickListener?.invoke(it, fullName) }
             }

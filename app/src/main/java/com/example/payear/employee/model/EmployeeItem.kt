@@ -7,5 +7,6 @@ data class EmployeeItem(
     val firstName: String,
     val lastName: String,
     val age: Int,
-    val gender: Gender
+    val gender: Gender,
+    val address: String
 ): DiffCallbackItem

@@ -20,7 +20,8 @@ class CreateItemDialogFragmentViewModel(
                     firstName = employeeItem.firstName.throwWhenEmpty(),
                     lastName = employeeItem.lastName.throwWhenEmpty(),
                     age = employeeItem.age,
-                    gender = employeeItem.gender
+                    gender = employeeItem.gender,
+                    address = employeeItem.address
                 )
             )
         }
