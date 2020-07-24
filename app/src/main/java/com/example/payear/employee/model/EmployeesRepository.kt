@@ -20,7 +20,7 @@ class EmployeesRepository(private val employeeDao: EmployeeDao) {
 
     fun deleteById(id: Int) = employeeDao.deleteById(id)
 
-    fun updateById(item: EmployeeItem) = employeeDao.updateById(
+    fun updateEmployee(item: EmployeeItem) = employeeDao.updateEmployee(
         item.id ?: throw IllegalArgumentException(),
         item.firstName,
         item.lastName,

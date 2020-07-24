@@ -3,7 +3,6 @@ package com.example.payear.employee.viewmodel
 import androidx.lifecycle.ViewModel
 import com.example.payear.employee.model.EmployeeItem
 import com.example.payear.employee.model.EmployeesRepository
-import com.example.payear.employee.model.Gender
 import com.example.payear.utils.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -24,7 +23,7 @@ class EmployeesViewModel(
     }
 
     fun updateItem(item: EmployeeItem): Completable {
-        return Completable.fromAction { employeesRepository.updateById(item) }
+        return Completable.fromAction { employeesRepository.updateEmployee(item) }
             .subscribeOn(rxSchedulers.io)
             .observeOn(rxSchedulers.ui)
     }
