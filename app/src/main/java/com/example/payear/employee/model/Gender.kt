@@ -1,5 +1,9 @@
 package com.example.payear.employee.model
 
-enum class Gender {
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+enum class Gender : Parcelable {
     MALE, FEMALE, OTHER
 }

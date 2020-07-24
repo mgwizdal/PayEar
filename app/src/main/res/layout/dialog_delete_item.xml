@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/margin_normal">
+    android:padding="@dimen/margin_large">
 
     <Button
         android:id="@+id/confirmDeleteButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_x_large"
-        android:background="@color/colorPrimary"
+        android:background="@color/delete_red"
         android:text="@string/yes"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toStartOf="@id/guideline"
@@ -33,7 +33,7 @@
         android:id="@+id/deleteLabelTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_x_large"
+        android:layout_marginTop="@dimen/margin_large"
         android:gravity="center"
         android:textColor="@android:color/black"
         android:textSize="@dimen/main_text_size"

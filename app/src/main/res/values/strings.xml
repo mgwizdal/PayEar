@@ -9,6 +9,11 @@
     <string name="first_name">First Name:</string>
     <string name="age">Age:</string>
     <string name="gender">Gender:</string>
-    <string name="edit">EDIT</string>
-    <string name="cancel">cancel</string>
+    <string name="edit">edit</string>
+    <string name="issue_occurred">Issue occurred. Try again!</string>
+    <string name="employee_updated">Employee updated!</string>
+    <string name="create">create</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
 </resources>

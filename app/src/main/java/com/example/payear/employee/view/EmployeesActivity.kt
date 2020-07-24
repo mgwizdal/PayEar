@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.payear.R
 import com.example.payear.employee.model.EmployeeItem
-import com.example.payear.employee.model.Gender
 import com.example.payear.employee.viewmodel.EmployeesViewModel
 import com.example.payear.utils.include
 import com.example.payear.utils.showDialogIfNotAdded
@@ -15,7 +14,8 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class EmployeesActivity : AppCompatActivity(), DeleteItemDialogFragment.Listener, EditItemDialogFragment.Listener {
+class EmployeesActivity : AppCompatActivity(), DeleteItemDialogFragment.Listener,
+    EditItemDialogFragment.Listener {
     private val destroyDisposables = CompositeDisposable()
 
     private val viewModel: EmployeesViewModel by viewModel()
@@ -35,12 +35,27 @@ class EmployeesActivity : AppCompatActivity(), DeleteItemDialogFragment.Listener
         employeesRecyclerView.layoutManager =
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         employeesRecyclerView.adapter = adapter
-        adapter.onClickListener = { id, name ->
+        adapter.onEditClickListener = { item ->
+            if (item.id != null) {
+                showDialogIfNotAdded(
+                    EditItemDialogFragment.TAG,
+                    EditItemDialogFragment.newInstance(
+                        item.id,
+                        item.firstName,
+                        item.lastName,
+                        item.age,
+                        item.gender
+                    )
+                )
+            } else {
+                showToast(getString(R.string.issue_occurred))
+            }
+        }
+
+        adapter.onDeleteClickListener = { id, name ->
             showDialogIfNotAdded(
-                EditItemDialogFragment.TAG,
-                EditItemDialogFragment.newInstance(id, name, "", 0, Gender.MALE)
-//                DeleteItemDialogFragment.TAG,
-//                DeleteItemDialogFragment.newInstance(id, name)
+                DeleteItemDialogFragment.TAG,
+                DeleteItemDialogFragment.newInstance(id, name)
             )
         }
     }
@@ -54,8 +69,10 @@ class EmployeesActivity : AppCompatActivity(), DeleteItemDialogFragment.Listener
 
     private fun setupFab() {
         createFab.setOnClickListener {
-            destroyDisposables include viewModel.insertNewItem()
-                .subscribe { showToast(getString(R.string.new_employee_added)) }
+            showDialogIfNotAdded(
+                CreateItemDialogFragment.TAG,
+                CreateItemDialogFragment.newInstance()
+            )
         }
     }
 
@@ -69,7 +86,7 @@ class EmployeesActivity : AppCompatActivity(), DeleteItemDialogFragment.Listener
     override fun onEditClicked(employeeItem: EmployeeItem) {
         destroyDisposables include viewModel.updateItem(employeeItem)
             .subscribe {
-                showToast("Employee updated")
+                showToast(getString(R.string.employee_updated))
             }
     }
 

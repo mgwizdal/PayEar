@@ -17,22 +17,6 @@ class EmployeesViewModel(
         .subscribeOn(rxSchedulers.io)
         .observeOn(rxSchedulers.ui)
 
-    fun insertNewItem(): Completable {
-        return Completable.fromAction {
-            employeesRepository.insertEmployee(
-                EmployeeItem(
-                    null,
-                    firstName = "Max",
-                    lastName = "Gwizdala",
-                    age = 26,
-                    gender = Gender.MALE
-                )
-            )
-        }
-            .subscribeOn(rxSchedulers.io)
-            .observeOn(rxSchedulers.ui)
-    }
-
     fun deleteItem(id: Int): Completable {
         return Completable.fromAction { employeesRepository.deleteById(id) }
             .subscribeOn(rxSchedulers.io)

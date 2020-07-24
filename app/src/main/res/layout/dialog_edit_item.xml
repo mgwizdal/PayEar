@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_normal"
         android:gravity="end"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ageLabel"
         app:layout_constraintTop_toBottomOf="@id/firstNameEditText" />
@@ -65,47 +66,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/ageEditText" />
 
-    <EditText
-        android:id="@+id/genderEditText"
+    <RadioGroup
+        android:id="@+id/genderRadioGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_normal"
         android:gravity="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/genderLabel"
-        app:layout_constraintTop_toBottomOf="@id/ageEditText" />
-
+        app:layout_constraintTop_toBottomOf="@id/ageEditText"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/maleRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/male"/>
+        <RadioButton
+            android:id="@+id/femaleRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/female"/>
+        <RadioButton
+            android:id="@+id/otherRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/other"/>
+    </RadioGroup>
     <TextView
         android:id="@+id/genderLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/gender"
         android:textSize="@dimen/main_text_size"
-        app:layout_constraintBottom_toBottomOf="@id/genderEditText"
+        app:layout_constraintBottom_toBottomOf="@id/genderRadioGroup"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/genderEditText" />
+        app:layout_constraintTop_toTopOf="@id/genderRadioGroup" />
 
     <Button
-        android:id="@+id/confirmEditButton"
+        android:id="@+id/confirmButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_large"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorAccent"
         android:text="@string/edit"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/genderEditText" />
+        app:layout_constraintTop_toBottomOf="@id/genderRadioGroup" />
 
     <Button
-        android:id="@+id/cancelEditButton"
+        android:id="@+id/cancelButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:text="@string/cancel"
+        android:text="@android:string/cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toTopOf="@id/confirmEditButton" />
+        app:layout_constraintTop_toTopOf="@id/confirmButton" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

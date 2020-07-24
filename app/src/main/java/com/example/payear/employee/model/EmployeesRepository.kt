@@ -11,7 +11,9 @@ class EmployeesRepository(private val employeeDao: EmployeeDao) {
             firstName = employeeItem.firstName,
             lastName = employeeItem.lastName,
             age = employeeItem.age,
-            gender = employeeItem.gender ))
+            gender = employeeItem.gender
+        )
+    )
 
     fun getAllEmployees(): Observable<List<EmployeeItem>> =
         employeeDao.getEmployees().toObservable().map { list -> list.map { it.toEmployeeItem() } }
