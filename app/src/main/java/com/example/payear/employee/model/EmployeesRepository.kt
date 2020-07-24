@@ -2,6 +2,7 @@ package com.example.payear.employee.model
 
 import io.reactivex.Flowable
 import io.reactivex.Observable
+import java.lang.IllegalArgumentException
 
 class EmployeesRepository(private val employeeDao: EmployeeDao) {
 
@@ -20,12 +21,12 @@ class EmployeesRepository(private val employeeDao: EmployeeDao) {
 
     fun deleteById(id: Int) = employeeDao.deleteById(id)
 
-    fun updateById(id: Int, newEntity: EmployeeEntity) = employeeDao.updateById(
-        id,
-        newEntity.firstName,
-        newEntity.lastName,
-        newEntity.age,
-        newEntity.gender.name
+    fun updateById(item: EmployeeItem) = employeeDao.updateById(
+        item.id ?: throw IllegalArgumentException(),
+        item.firstName,
+        item.lastName,
+        item.age,
+        item.gender.name
     )
 
     private fun EmployeeEntity.toEmployeeItem(): EmployeeItem =

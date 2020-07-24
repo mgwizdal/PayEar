@@ -14,10 +14,10 @@ data class EmployeeEntity(
     val firstName: String,
     @ColumnInfo(name = COLUMN_EMPLOYEE_LAST_NAME)
     val lastName: String,
-    @ColumnInfo(name = COLUMN_EMPLOYEE_GENDER)
-    val gender: Gender,
     @ColumnInfo(name = COLUMN_EMPLOYEE_AGE)
-    val age: Int
+    val age: Int,
+    @ColumnInfo(name = COLUMN_EMPLOYEE_GENDER)
+    val gender: Gender
 ) {
     companion object {
         const val TABLE_NAME = "employees"

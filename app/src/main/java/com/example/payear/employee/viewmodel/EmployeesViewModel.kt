@@ -32,4 +32,16 @@ class EmployeesViewModel(
             .subscribeOn(rxSchedulers.io)
             .observeOn(rxSchedulers.ui)
     }
+
+    fun deleteItem(id: Int): Completable {
+        return Completable.fromAction { employeesRepository.deleteById(id) }
+            .subscribeOn(rxSchedulers.io)
+            .observeOn(rxSchedulers.ui)
+    }
+
+    fun updateItem(item: EmployeeItem): Completable {
+        return Completable.fromAction { employeesRepository.updateById(item) }
+            .subscribeOn(rxSchedulers.io)
+            .observeOn(rxSchedulers.ui)
+    }
 }

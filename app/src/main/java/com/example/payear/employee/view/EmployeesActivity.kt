@@ -5,14 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.payear.R
+import com.example.payear.employee.model.EmployeeItem
+import com.example.payear.employee.model.Gender
 import com.example.payear.employee.viewmodel.EmployeesViewModel
 import com.example.payear.utils.include
+import com.example.payear.utils.showDialogIfNotAdded
 import com.example.payear.utils.showToast
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class EmployeesActivity : AppCompatActivity() {
+class EmployeesActivity : AppCompatActivity(), DeleteItemDialogFragment.Listener, EditItemDialogFragment.Listener {
     private val destroyDisposables = CompositeDisposable()
 
     private val viewModel: EmployeesViewModel by viewModel()
@@ -32,8 +35,13 @@ class EmployeesActivity : AppCompatActivity() {
         employeesRecyclerView.layoutManager =
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         employeesRecyclerView.adapter = adapter
-        adapter.onClickListener = {
-            showToast("Employee name: $it")
+        adapter.onClickListener = { id, name ->
+            showDialogIfNotAdded(
+                EditItemDialogFragment.TAG,
+                EditItemDialogFragment.newInstance(id, name, "", 0, Gender.MALE)
+//                DeleteItemDialogFragment.TAG,
+//                DeleteItemDialogFragment.newInstance(id, name)
+            )
         }
     }
 
@@ -49,6 +57,20 @@ class EmployeesActivity : AppCompatActivity() {
             destroyDisposables include viewModel.insertNewItem()
                 .subscribe { showToast(getString(R.string.new_employee_added)) }
         }
+    }
+
+    override fun onDeleteClicked(id: Int) {
+        destroyDisposables include viewModel.deleteItem(id)
+            .subscribe {
+                showToast(getString(R.string.employee_removed))
+            }
+    }
+
+    override fun onEditClicked(employeeItem: EmployeeItem) {
+        destroyDisposables include viewModel.updateItem(employeeItem)
+            .subscribe {
+                showToast("Employee updated")
+            }
     }
 
     override fun onDestroy() {
