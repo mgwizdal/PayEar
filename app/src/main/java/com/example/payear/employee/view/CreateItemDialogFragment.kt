@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.payear.R
+import com.example.payear.employee.model.AddressItem
 import com.example.payear.employee.model.EmployeeItem
 import com.example.payear.employee.viewmodel.CreateItemDialogFragmentViewModel
 import com.example.payear.utils.include
@@ -36,7 +37,10 @@ class CreateItemDialogFragment : BaseItemDialogFragment() {
                     view.lastNameEditText.text.toString(),
                     Integer.parseInt(view.ageEditText.text.let { if (it.isNotEmpty()) it.toString() else "0" }),
                     getGenderFromId(view.genderRadioGroup.checkedRadioButtonId),
-                    view.addressEditText.text.toString()
+                    listOf(
+                        AddressItem(null, null, view.addressEditText.text.toString()),
+                        AddressItem(null, null, view.addressEditText2.text.toString())
+                    )
                     )
             ).subscribe({
                 dialog?.dismiss()

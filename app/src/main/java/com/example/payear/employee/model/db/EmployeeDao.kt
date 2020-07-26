@@ -1,4 +1,4 @@
-package com.example.payear.employee.model
+package com.example.payear.employee.model.db
 
 import androidx.room.*
 import io.reactivex.Flowable
@@ -18,7 +18,10 @@ interface EmployeeDao {
     fun deleteById(id: Int)
 
     @Query(UPDATE_BY_ID)
-    fun updateEmployee(id: Int, firstName: String, lastName: String, age: Int, gender: String, address: String)
+    fun updateEmployee(id: Int, firstName: String, lastName: String, age: Int, gender: String)
+
+    @Query(GET_ALL_ITEMS)
+    fun getEmployeesView(): Flowable<List<EmployeeWithAddressView>>
 
     companion object {
         private const val GET_ALL_ITEMS = "SELECT * FROM ${EmployeeEntity.TABLE_NAME}"
@@ -30,8 +33,7 @@ interface EmployeeDao {
                 "${EmployeeEntity.COLUMN_EMPLOYEE_FIRST_NAME} =  :firstName, " +
                 "${EmployeeEntity.COLUMN_EMPLOYEE_LAST_NAME} =  :lastName, " +
                 "${EmployeeEntity.COLUMN_EMPLOYEE_AGE} =  :age, " +
-                "${EmployeeEntity.COLUMN_EMPLOYEE_GENDER} =  :gender, " +
-                "${EmployeeEntity.COLUMN_EMPLOYEE_ADDRESS} =  :address " +
+                "${EmployeeEntity.COLUMN_EMPLOYEE_GENDER} =  :gender " +
                 "WHERE ${EmployeeEntity.COLUMN_EMPLOYEE_ID} = :id"
     }
 }

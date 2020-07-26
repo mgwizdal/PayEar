@@ -1,5 +1,6 @@
 package com.example.payear.employee.model
 
+import com.example.payear.employee.model.db.*
 import io.reactivex.Flowable
 import org.junit.Before
 import org.junit.Test
@@ -14,37 +15,44 @@ class EmployeesRepositoryTest {
 
     @Mock
     private lateinit var employeeDao: EmployeeDao
+    @Mock
+    private lateinit var addressDao: AddressDao
 
     lateinit var repository: EmployeesRepository
 
-    private val entity = EmployeeEntity(
-        0,
-        "firstName",
-        "lastName",
-        21,
-        Gender.OTHER,
-        "Zwycieska"
-    )
-
+    private val employeeEntity =
+        EmployeeEntity(
+            0,
+            "firstName",
+            "lastName",
+            21,
+            Gender.OTHER
+        )
+    private val addressEntity = AddressEntity(0, employeeEntity.id!!, "address")
+    private val listOfAddresses = listOf<AddressItem>(addressEntity.toItem())
     private val employeeItem = EmployeeItem(
-        entity.id,
-        entity.firstName,
-        entity.lastName,
-        entity.age,
-        entity.gender,
-        entity.address
+        employeeEntity.id,
+        employeeEntity.firstName,
+        employeeEntity.lastName,
+        employeeEntity.age,
+        employeeEntity.gender,
+        listOfAddresses
     )
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        repository = EmployeesRepository(employeeDao)
+        repository = EmployeesRepository(employeeDao, addressDao)
     }
 
     @Test
     fun `Get all employees`() {
         //given
-        `when`(employeeDao.getEmployees()).thenReturn(Flowable.just(listOf(entity)))
+        `when`(employeeDao.getEmployeesView()).thenReturn(Flowable.just(listOf(
+            EmployeeWithAddressView().apply {
+                this.employeeEntity = this@EmployeesRepositoryTest.employeeEntity
+                this.addressList = listOfAddresses.map { it.toEntity() }
+            }  )))
 
         //when
         val observer = repository.getAllEmployees().test()
@@ -53,12 +61,12 @@ class EmployeesRepositoryTest {
         observer.assertValue(
             listOf(
                 EmployeeItem(
-                    entity.id,
-                    entity.firstName,
-                    entity.lastName,
-                    entity.age,
-                    entity.gender,
-                    entity.address
+                    employeeEntity.id,
+                    employeeEntity.firstName,
+                    employeeEntity.lastName,
+                    employeeEntity.age,
+                    employeeEntity.gender,
+                    listOfAddresses
                 )
             )
         )
@@ -84,8 +92,7 @@ class EmployeesRepositoryTest {
             employeeItem.firstName,
             employeeItem.lastName,
             employeeItem.age,
-            employeeItem.gender.name,
-            employeeItem.address
+            employeeItem.gender.name
         )
     }
 

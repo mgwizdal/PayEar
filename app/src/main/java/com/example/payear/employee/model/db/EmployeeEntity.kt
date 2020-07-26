@@ -1,9 +1,10 @@
-package com.example.payear.employee.model
+package com.example.payear.employee.model.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.payear.employee.model.EmployeeEntity.Companion.TABLE_NAME
+import com.example.payear.employee.model.Gender
+import com.example.payear.employee.model.db.EmployeeEntity.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
 data class EmployeeEntity(
@@ -17,9 +18,7 @@ data class EmployeeEntity(
     @ColumnInfo(name = COLUMN_EMPLOYEE_AGE)
     val age: Int,
     @ColumnInfo(name = COLUMN_EMPLOYEE_GENDER)
-    val gender: Gender,
-    @ColumnInfo(name = COLUMN_EMPLOYEE_ADDRESS)
-    val address: String
+    val gender: Gender
 ) {
     companion object {
         const val TABLE_NAME = "employees"
@@ -28,6 +27,5 @@ data class EmployeeEntity(
         const val COLUMN_EMPLOYEE_LAST_NAME = "last_name"
         const val COLUMN_EMPLOYEE_GENDER = "gender"
         const val COLUMN_EMPLOYEE_AGE = "age"
-        const val COLUMN_EMPLOYEE_ADDRESS = "address"
     }
 }

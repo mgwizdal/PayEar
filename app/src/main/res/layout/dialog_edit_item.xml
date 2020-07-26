@@ -15,7 +15,7 @@
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addressEditText" />
+        app:layout_constraintTop_toBottomOf="@id/addressEditText2" />
 
     <Button
         android:id="@+id/cancelButton"
@@ -97,6 +97,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/addressLabel"
         app:layout_constraintTop_toBottomOf="@id/genderRadioGroup" />
+
+    <EditText
+        android:id="@+id/addressEditText2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_normal"
+        android:gravity="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/addressLabel"
+        app:layout_constraintTop_toBottomOf="@id/addressEditText" />
 
     <TextView
         android:id="@+id/lastNameLabel"

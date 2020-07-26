@@ -11,7 +11,7 @@ import org.koin.dsl.module.module
 
 val appModule = module {
     single { RxSchedulers() }
-    single { EmployeesRepository(get()) }
+    single { EmployeesRepository(get(), get()) }
     viewModel { EmployeesViewModel(get(), get()) }
     viewModel { CreateItemDialogFragmentViewModel(get(), get()) }
 }
@@ -22,5 +22,8 @@ val dbModule = module {
     }
     single {
         get<PayEarDatabase>().employeeDao()
+    }
+    single {
+        get<PayEarDatabase>().addressDao()
     }
 }

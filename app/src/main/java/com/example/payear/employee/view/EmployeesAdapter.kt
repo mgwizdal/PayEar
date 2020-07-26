@@ -3,6 +3,9 @@ package com.example.payear.employee.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
 import com.example.payear.R
 import com.example.payear.employee.model.EmployeeItem
@@ -43,7 +46,32 @@ class EmployeesAdapter() :
             itemView.namesTextView.text = fullName
             itemView.ageTextView.text = item.age.toString()
             itemView.genderTextView.text = item.gender.toString()
-            itemView.addressTextView.text = item.address
+            var previousItem = -1
+            item.addressList.forEachIndexed { index, addressItem ->
+                itemView.itemContainer.setHasTransientState(true)
+                val textView = TextView(itemView.context).apply {
+                    text = addressItem.address
+                    textSize = 14f
+                    id = index
+                }
+
+                itemView.itemContainer.addView(textView)
+                val constraintLayout: ConstraintLayout = itemView.findViewById(R.id.itemContainer)
+                ConstraintSet().apply {
+                    clone(constraintLayout)
+                    connect(
+                        index,
+                        ConstraintSet.TOP,
+                        R.id.genderTextView,
+                        ConstraintSet.BOTTOM,
+                        index * 48
+                    )
+                    applyTo(constraintLayout)
+                }
+                previousItem = index
+            }
+            itemView.itemContainer.setHasTransientState(false)
+
             itemView.deleteButton.setOnClickListener {
                 item.id?.let { onDeleteClickListener?.invoke(it, fullName) }
             }
